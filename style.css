@@ -1,218 +1,152 @@
-
+/* Tema roxo com vidro — substitui o style.css antigo */
 :root {
-  --bg: #08142b;
-  --bg-deep: #050d1e;
-  --text: #eef4ff;
-  --muted: #8ea6cc;
-  --accent: #5aa8ff;
-  --pill-bg: #102246;
-  --pill-border: #1f3a6b;
-  --glow: rgba(90, 168, 255, 0.18);
+  --bg: #0d0820;
+  --bg-glow-a: rgba(124, 58, 237, .38);
+  --bg-glow-b: rgba(34, 211, 238, .14);
+  --text: #f4f0ff;
+  --muted: #b4a8d8;
+  --accent: #a78bfa;
+  --accent-2: #22d3ee;
+  --glass: rgba(255, 255, 255, .07);
+  --glass-hover: rgba(255, 255, 255, .12);
+  --border: rgba(196, 181, 253, .22);
+  --glow: rgba(139, 92, 246, .45);
 }
-
 :root[data-theme="light"] {
-  --bg: #eaf2ff;
-  --bg-deep: #dbe8fd;
-  --text: #0a1a3a;
-  --muted: #4a5f86;
-  --accent: #1f6fe0;
-  --pill-bg: #d6e4fb;
-  --pill-border: #b7cdf3;
-  --glow: rgba(31, 111, 224, 0.16);
+  --bg: #f6f2ff;
+  --bg-glow-a: rgba(167, 139, 250, .45);
+  --bg-glow-b: rgba(34, 211, 238, .18);
+  --text: #1c1236;
+  --muted: #5f5385;
+  --accent: #6d28d9;
+  --accent-2: #0891b2;
+  --glass: rgba(255, 255, 255, .6);
+  --glass-hover: rgba(255, 255, 255, .85);
+  --border: rgba(109, 40, 217, .2);
+  --glow: rgba(109, 40, 217, .25);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body { height: 100%; }
-
+html { scroll-behavior: smooth; }
 body {
-  background: var(--bg);
-  background-image:
-    radial-gradient(1200px 700px at 85% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-  background-attachment: fixed;
-  color: var(--text);
+  min-height: 100vh;
   font-family: "Outfit", system-ui, sans-serif;
-  overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  color: var(--text);
+  background:
+    radial-gradient(60% 50% at 50% 0%, var(--bg-glow-a), transparent 70%),
+    radial-gradient(40% 40% at 90% 90%, var(--bg-glow-b), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  transition: background-color .3s, color .3s;
 }
-
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
 
-/* ---------- Topo ---------- */
+/* Topo */
 .topbar {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.1rem 2.2rem;
+  position: fixed; inset: 0 0 auto 0; z-index: 5;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 24px;
 }
-
-.logo { font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; margin-right: auto; }
-
+.logo { font-family: "Archivo", sans-serif; font-weight: 800; letter-spacing: .02em; }
 .theme-toggle {
-  width: 38px; height: 38px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  border: 1px solid var(--pill-border);
-  background: var(--pill-bg);
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 50%; cursor: pointer; color: var(--text);
+  background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transition: transform .2s, box-shadow .2s;
 }
+.theme-toggle:hover { transform: rotate(15deg); box-shadow: 0 0 18px var(--glow); }
 .theme-toggle .sun { display: none; }
-:root[data-theme="light"] .theme-toggle .sun { display: block; }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
+:root[data-theme="light"] .theme-toggle .sun { display: block; }
 
-/* ---------- Saudação e nome ---------- */
-.greet {
-  font-family: "Kalam", cursive;
-  font-style: italic;
-  color: var(--accent);
-  line-height: 1.1;
-}
-
-.name {
-  font-family: "Archivo", sans-serif;
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-}
-.name span { display: block; }
-
-@media (max-width: 860px) {
-  .topbar { padding: 1rem 16px; }
-}
-
-.links-page { min-height: 100%; }
-
+/* Conteúdo (fica na frente do boneco 3D) */
 .links {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 6.5rem 16px 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: radial-gradient(ellipse 70% 30% at 50% 12%, var(--glow), transparent 72%);
+  position: relative; z-index: 1;
+  width: min(520px, 100% - 32px);
+  margin: 0 auto; padding: 96px 0 48px;
+  display: flex; flex-direction: column; align-items: center;
 }
-
-/* ---------- Perfil ---------- */
-.profile { text-align: center; animation: rise 0.9s cubic-bezier(.2,.7,.2,1) both; }
+.profile { text-align: center; margin-bottom: 32px; }
 .avatar {
-  display: block;
-  width: 112px; height: 112px;
-  margin: 0 auto 1.3rem;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 112px; height: 112px; border-radius: 50%; object-fit: cover;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 0 6px var(--glow), 0 18px 40px -18px var(--accent);
+  box-shadow: 0 0 0 6px var(--glass), 0 0 38px var(--glow);
+  animation: float 6s ease-in-out infinite;
 }
-.profile .greet { font-size: clamp(1.3rem, 5vw, 1.7rem); margin-bottom: 0.3rem; }
-.profile .name-first { font-size: clamp(2.6rem, 11vw, 3.6rem); }
-.profile .name-last { font-size: clamp(2.1rem, 9vw, 2.95rem); }
+@keyframes float { 50% { transform: translateY(-6px); } }
+.greet { margin-top: 20px; color: var(--muted); font-size: 1rem; }
+.name { display: flex; flex-direction: column; line-height: .95; margin-top: 6px; }
+.name-first {
+  font-family: "Archivo", sans-serif; font-weight: 800; font-size: clamp(2.8rem, 9vw, 4rem);
+  background: linear-gradient(90deg, var(--text), var(--accent) 80%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.name-last {
+  font-family: "Archivo", sans-serif; font-weight: 500; font-style: italic;
+  font-size: clamp(1.8rem, 6vw, 2.4rem); color: var(--muted);
+}
 .links-role {
-  font-family: "Space Mono", monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 0.9rem;
+  margin-top: 14px; min-height: 1.4em;
+  font-family: "Space Mono", monospace; font-size: .95rem; color: var(--accent-2);
 }
-
-/* ---------- Cards de link (borda tracejada + cantos, como os cards do portfólio) ---------- */
-.link-list {
-  list-style: none;
-  width: 100%;
-  margin-top: 2.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
+.caret {
+  display: inline-block; width: 2px; height: 1em; margin-left: 3px;
+  vertical-align: -2px; background: var(--accent-2); animation: blink 1s steps(1) infinite;
 }
-.link-list li { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
-.link-list li:nth-child(1) { animation-delay: 0.15s; }
-.link-list li:nth-child(2) { animation-delay: 0.22s; }
-.link-list li:nth-child(3) { animation-delay: 0.29s; }
-.link-list li:nth-child(4) { animation-delay: 0.36s; }
-.link-list li:nth-child(5) { animation-delay: 0.43s; }
-.link-list li:nth-child(6) { animation-delay: 0.5s; }
+@keyframes blink { 50% { opacity: 0; } }
 
+/* Cards de vidro */
+.link-list { list-style: none; width: 100%; display: grid; gap: 14px; }
 .link-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.15rem;
-  border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--pill-border));
-  transition: background-color 0.3s, transform 0.25s ease;
+  position: relative; display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px; border-radius: 22px;
+  background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%);
+  transition: transform .25s ease, background .25s, box-shadow .25s, border-color .25s;
 }
-.link-card:hover,
-.link-card:focus-visible { background: color-mix(in srgb, var(--accent) 7%, transparent); transform: translateY(-2px); }
-.link-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.link-card.featured { border-style: solid; background: color-mix(in srgb, var(--accent) 5%, transparent); }
-
-.corner { position: absolute; width: 12px; height: 12px; border-color: var(--accent); border-style: solid; border-width: 0; }
-.corner.tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-.corner.tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-.corner.bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-.corner.br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
-
+.link-card:hover, .link-card:focus-visible {
+  transform: translateY(-4px); background: var(--glass-hover);
+  border-color: var(--accent); box-shadow: 0 10px 34px var(--glow);
+}
+.corner { display: none; }
 .link-icon {
-  flex: none;
-  width: 46px; height: 46px;
-  display: grid; place-items: center;
-  border-radius: 12px;
-  background: var(--pill-bg);
-  border: 1px solid var(--pill-border);
-  color: var(--accent);
+  flex: none; display: grid; place-items: center; width: 48px; height: 48px;
+  border-radius: 16px; color: var(--accent);
+  background: linear-gradient(135deg, rgba(139, 92, 246, .28), rgba(34, 211, 238, .14));
+  transition: transform .25s;
 }
-.link-icon.app { padding: 0; object-fit: cover; border: 0; box-shadow: 0 8px 20px -10px rgba(10, 26, 58, 0.6); }
+.link-card:hover .link-icon { transform: scale(1.08) rotate(-4deg); }
+.link-text { flex: 1; display: grid; gap: 2px; min-width: 0; }
+.link-title { font-weight: 600; font-size: 1.1rem; }
+.link-sub { color: var(--muted); font-size: .88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.link-arrow { color: var(--muted); font-size: 1.2rem; transition: transform .25s, color .25s; }
+.link-card:hover .link-arrow { transform: translate(3px, -3px); color: var(--accent-2); }
 
-.link-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
-.link-title {
-  font-family: "Archivo", sans-serif;
-  font-weight: 800;
-  font-size: 1.15rem;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+/* Botão do currículo */
+.resume-btn {
+  margin-top: 22px; padding: 13px 28px; border-radius: 999px;
+  font-weight: 600; color: #fff;
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  box-shadow: 0 6px 24px var(--glow);
+  transition: transform .2s, box-shadow .2s;
 }
-.link-sub { font-size: 0.85rem; color: var(--muted); }
+.resume-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px var(--glow); }
 
-.link-arrow {
-  flex: none;
-  width: 32px; height: 32px;
-  display: grid; place-items: center;
-  border: 1px solid var(--pill-border);
-  font-size: 0.95rem;
-  transition: transform 0.3s ease, background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-.link-card:hover .link-arrow { transform: rotate(45deg); background: var(--accent); border-color: var(--accent); color: var(--bg); }
-
-/* ---------- E-mail ---------- */
 .link-mail {
-  margin-top: 2.2rem;
-  font-family: "Space Mono", monospace;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  border-bottom: 1px solid var(--pill-border);
-  padding-bottom: 2px;
-  transition: color 0.2s, border-color 0.2s;
-  animation: rise 0.8s 0.55s cubic-bezier(.2,.7,.2,1) both;
+  margin-top: 26px; color: var(--muted); font-family: "Space Mono", monospace; font-size: .85rem;
+  border-bottom: 1px solid var(--border); transition: color .2s;
 }
-.link-mail:hover { color: var(--accent); border-color: var(--accent); }
+.link-mail:hover { color: var(--accent-2); }
 
-/* ---------- Assinatura ---------- */
-.links-foot { text-align: center; margin-top: 3rem; }
-.links-foot .sig-by,
-.links-foot .sig-name { font-family: "Kalam", cursive; font-size: 1.5rem; line-height: 1.1; }
-.links-foot .sig-by { color: var(--muted); }
-.links-foot .sig-name { color: var(--accent); }
-.links-foot .copy { font-family: "Space Mono", monospace; font-size: 0.8rem; color: var(--muted); margin-top: 1rem; }
-
-@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+.links-foot { margin-top: 36px; text-align: center; color: var(--muted); font-size: .85rem; }
+.sig-name { font-family: "Kalam", cursive; font-size: 1.3rem; color: var(--text); }
 
 @media (prefers-reduced-motion: reduce) {
-  .profile, .link-list li, .link-mail { animation: none; }
-  .link-card, .link-arrow { transition: none; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (max-width: 480px) {
+  .topbar { padding: 14px 16px; }
+  .links { padding-top: 84px; }
 }
