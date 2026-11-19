@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const COR_PELE    = 0xa8744f;
 const COR_PELE_2  = 0x96643f;
 const COR_CABELO  = 0x1c120d;
-const COR_MOLETOM = 0x161616;
+const COR_MOLETOM = 0x7c3aed;
 
 /* ---------- cena ---------- */
 const container = document.getElementById('boneco');
