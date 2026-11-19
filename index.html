@@ -14,15 +14,7 @@
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
 </script>
 <style>
-  #boneco {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 30vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-  }
+  #boneco { position: fixed; left: 0; top: 0; width: 30vw; height: 100vh; pointer-events: none; z-index: 0; }
   #boneco canvas { display: block; }
   @media (max-width: 1000px) { #boneco { display: none; } }
 </style>
@@ -39,16 +31,16 @@
 
   <main class="links">
     <div class="profile">
-      <img class="avatar" src="vinicius.jpeg" alt="Foto de Vinicius Paixão" width="112" height="112" />
-      <p class="greet">Olá! Eu sou</p>
+      <img class="avatar" src="assets/vinicius.jpeg" alt="Foto de Vinicius Paixão" width="112" height="112" />
+      <p class="greet">Oi, eu sou o</p>
       <h1 class="name"><span class="name-first">Vinicius</span><span class="name-last">Paixão</span></h1>
-      <p class="links-role">Gestão de TI · data · python </p>
+      <p class="links-role"><span id="typed">Gestão de TI</span><span class="caret" aria-hidden="true"></span></p>
     </div>
 
     <ul class="link-list">
       <li>
         <a class="link-card" href="https://github.com/vinidevzinho">
-          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <i class="corner"></i>
           <span class="link-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3M7 9l2.5 2L7 13M11.5 13H15"/></svg>
           </span>
@@ -61,7 +53,7 @@
       </li>
       <li>
         <a class="link-card" href="https://github.com/vinidevzinho" target="_blank" rel="noopener">
-          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <i class="corner"></i>
           <span class="link-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
           </span>
@@ -74,7 +66,7 @@
       </li>
       <li>
         <a class="link-card" href="https://www.linkedin.com/in/marcos-vinicius-b482612b4" target="_blank" rel="noopener">
-          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <i class="corner"></i>
           <span class="link-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>
           </span>
@@ -87,7 +79,7 @@
       </li>
       <li>
         <a class="link-card" href="https://www.instagram.com/_viniwkx" target="_blank" rel="noopener">
-          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <i class="corner"></i>
           <span class="link-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/></svg>
           </span>
@@ -100,17 +92,46 @@
       </li>
     </ul>
 
+    <a class="resume-btn" href="assets/curriculo.pdf" download>Baixar currículo</a>
+
     <a class="link-mail" href="mailto:marcosvlemospaixao@gmail.com">marcosvlemospaixao@gmail.com</a>
 
     <footer class="links-foot">
-      <p class="sig-by">Desenvolvido por</p>
-      <p class="sig-name">Theo</p>
+      <p class="sig-by">Feito por</p>
+      <p class="sig-name">Vinicius</p>
       <p class="copy">© 2026</p>
     </footer>
   </main>
 
-    </script>
+  <script>
+    (function () {
+      // Alternar tema (stopImmediatePropagation evita alternar duas vezes se o boneco.js também tratar o clique)
+      var btn = document.querySelector('.theme-toggle');
+      btn.addEventListener('click', function (e) {
+        e.stopImmediatePropagation();
+        var t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+        try { localStorage.setItem('theme', t); } catch (_) {}
+      });
 
+      // Digitação automática do subtítulo
+      var el = document.getElementById('typed');
+      var words = ['Gestão de TI', 'Dados', 'Python', 'Automação'];
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = words.join(' · '); return; }
+      var w = 0, c = 0, del = false;
+      function tick() {
+        var word = words[w];
+        c += del ? -1 : 1;
+        el.textContent = word.slice(0, c);
+        var wait = del ? 45 : 90;
+        if (!del && c === word.length) { del = true; wait = 1400; }
+        else if (del && c === 0) { del = false; w = (w + 1) % words.length; wait = 350; }
+        setTimeout(tick, wait);
+      }
+      el.textContent = '';
+      tick();
+    })();
+  </script>
   <script type="module" src="boneco.js"></script>
 </body>
 </html>
